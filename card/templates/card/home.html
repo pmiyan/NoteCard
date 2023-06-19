@@ -1,0 +1,18 @@
+<html lang="en">
+    <head>
+        <title>Card Home</title>
+    </head>
+    <body>
+        <h1>Welcome to cards home!</h1>
+        {% for card in cards %}
+            <h1>{{card.title}}</h1>
+            <h2>{{card.cardcontent.content}}</h2>
+            <p>categories:
+                {% for type in card.cardtype_set.all %}
+                    {{ type.category }},
+                {% endfor %}
+            </p>
+            <p>posted by {{card.author}} on {{card.date_created}}</p>
+        {% endfor %}
+    </body>
+</html>

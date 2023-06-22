@@ -1,0 +1,36 @@
+[
+    {
+      "model": "card.CardTitle",
+      "pk": 1,
+      "fields": {
+        "title": "Sample Title 1",
+        "content": 1,
+        "date_created": "2023-06-01T10:00:00Z",
+        "author": 1,
+        "categories": [1, 2]
+      }
+    },
+    {
+      "model": "card.CardTitle",
+      "pk": 2,
+      "fields": {
+        "title": "Sample Title 2",
+        "content": 2,
+        "date_created": "2023-06-02T10:00:00Z",
+        "author": 1,
+        "categories": [2, 3]
+      }
+    },
+    {
+      "model": "card.CardTitle",
+      "pk": 3,
+      "fields": {
+        "title": "Sample Title 3",
+        "content": 3,
+        "date_created": "2023-06-03T10:00:00Z",
+        "author": 1,
+        "categories": [1, 3]
+      }
+    }
+  ]
+  

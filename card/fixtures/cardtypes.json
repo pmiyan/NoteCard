@@ -1,0 +1,26 @@
+[
+  {
+    "model": "card.CardType",
+    "pk": 1,
+    "fields": {
+      "category": "Type 1",
+      "color": "#4287f5"
+    }
+  },
+  {
+    "model": "card.CardType",
+    "pk": 2,
+    "fields": {
+      "category": "Type 2",
+      "color": "#ff9900"
+    }
+  },
+  {
+    "model": "card.CardType",
+    "pk": 3,
+    "fields": {
+      "category": "Type 3",
+      "color": "#00cc66"
+    }
+  }
+]

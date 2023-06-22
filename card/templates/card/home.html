@@ -10,10 +10,11 @@
 
 {% block content %}
     {% for card in cards %}
-        <h1>{{card.title}}</h1>
-        <h2>{{card.cardcontent.content}}</h2>
+        
+        <h1><a href="{% url 'card-detail' card.id%}">{{ card.title }}</a></h1>
+        <h2>{{card.content}}</h2>
         <p>categories:
-            {% for type in card.cardtype_set.all %}
+            {% for type in card.categories.all %}
                 {{ type.category }},
             {% endfor %}
         </p>

@@ -10,10 +10,10 @@
 
 {% block content %}
     <h1>{{card.title}}</h1>
-    <h2>{{card.cardcontent.content}}</h2>
+    <h2>{{card.content}}</h2>
     <p>categories:
-        {% for type in card.cardtype_set.all %}
-            {{ type.category }},
+        {% for type in card.categories.all %}
+            {{ type.color }},
         {% endfor %}
     </p>
     <p>posted by {{card.author}} on {{card.date_created}}</p>

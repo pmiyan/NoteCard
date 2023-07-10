@@ -1,18 +1,23 @@
-<html lang="en">
-    <head>
-        <title>Card Home</title>
-    </head>
-    <body>
-        <h1>Welcome to cards home!</h1>
-        {% for card in cards %}
-            <h1>{{card.title}}</h1>
-            <h2>{{card.cardcontent.content}}</h2>
-            <p>categories:
-                {% for type in card.cardtype_set.all %}
-                    {{ type.category }},
-                {% endfor %}
-            </p>
-            <p>posted by {{card.author}} on {{card.date_created}}</p>
-        {% endfor %}
-    </body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+    Cards Home
+{% endblock %}
+
+{% block header %}
+    Welcome Home!
+{% endblock %}
+
+{% block content %}
+    {% for card in cards %}
+        
+        <h1><a href="{{ card.get_absolute_url }}">{{ card.title }}</a></h1>
+        <h2>{{card.content}}</h2>
+        <p>categories:
+            {% for type in card.categories.all %}
+                {{ type.category }},
+            {% endfor %}
+        </p>
+        <p>posted by {{card.author}} on {{card.date_created}}</p>
+    {% endfor %}
+{% endblock %}

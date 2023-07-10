@@ -1,0 +1,24 @@
+[
+    {
+      "model": "card.CardContent",
+      "pk": 1,
+      "fields": {
+        "content": "Sample content 1"
+      }
+    },
+    {
+      "model": "card.CardContent",
+      "pk": 2,
+      "fields": {
+        "content": "Sample content 2"
+      }
+    },
+    {
+      "model": "card.CardContent",
+      "pk": 3,
+      "fields": {
+        "content": "Sample content 3"
+      }
+    }
+  ]
+  

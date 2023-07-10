@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Card {{card.id}} details
+{% endblock %}
+
+{% block header %}
+    Card {{card.id}} details
+{% endblock %}
+
+{% block content %}
+    <h1>{{card.title}}</h1>
+    <h2>{{card.content}}</h2>
+    <p>categories:
+        {% for type in card.categories.all %}
+            {{ type.color }},
+        {% endfor %}
+    </p>
+    <p>posted by {{card.author}} on {{card.date_created}}</p>
+{% endblock %}

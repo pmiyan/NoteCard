@@ -11,7 +11,7 @@
 {% block content %}
     {% for card in cards %}
         
-        <h1><a href="{% url 'card-detail' card.id%}">{{ card.title }}</a></h1>
+        <h1><a href="{{ card.get_absolute_url }}">{{ card.title }}</a></h1>
         <h2>{{card.content}}</h2>
         <p>categories:
             {% for type in card.categories.all %}

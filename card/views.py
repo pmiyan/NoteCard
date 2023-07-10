@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, Http404
 from .models import CardTitle, CardContent, CardType
 from django.views.generic import ListView, DetailView, CreateView
+from .forms import CardCreationForm
+from django.urls import reverse
 
 def hello_world(request):
     return HttpResponse("Hello World")
@@ -30,4 +32,14 @@ class CardDetailView(DetailView):
 
 class CardCreateView(CreateView):
     model = CardTitle
-    fields = ['title', 'content', 'type']
+    template_name = 'card/create.html'
+    form_class = CardCreationForm
+
+    def form_valid(self, form):
+        # card_title = form.save(commit=False) #TODO
+        # card_title.author = self.request.user
+        # card_title.save()
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse("card-detail", kwargs={'card_id': self.object.id})

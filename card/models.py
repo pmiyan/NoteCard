@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class CardType(models.Model):
     category = models.TextField(max_length=100)
@@ -24,4 +25,7 @@ class CardTitle(models.Model):
 
     def __str__(self):
         return (f"Card title is {self.title}")
+    
+    def get_absolute_url(self):
+        return reverse('card-detail', kwargs={'card_id':self.pk})
     

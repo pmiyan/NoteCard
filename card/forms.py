@@ -1,5 +1,5 @@
 from django import forms
-from .models import CardTitle, CardType, CardContent
+from .models import CardTitle, CardType
 from django.contrib.auth.models import User
 
 class CardCreationForm(forms.ModelForm):
@@ -9,19 +9,12 @@ class CardCreationForm(forms.ModelForm):
 
     class Meta:
         model = CardTitle
-        fields = ['title', 'categories']
+        fields = ['title', 'content', 'categories']
 
-    def save(self, commit=True):
-        content_data = self.cleaned_data['content']
-        title_data = self.cleaned_data['title']
-        type_data = self.cleaned_data['categories']
-
-        content = CardContent.objects.create(content=content_data)
-        card_title = CardTitle(title=title_data, content=content)
-        card_title.author = User.objects.get(id=1) #TODO remove after users created
-
+    def save(self, commit=True, author=None):
+        instance = super().save(commit=False)
+        instance.author = User.objects.get(id=1) #TODO remove after users created  # Set the author field from the parameter
         if commit:
-            card_title.save()
-            card_title.categories.set(type_data)
-
-        return card_title
+            instance.save()
+            self.save_m2m()
+        return instance

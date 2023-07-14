@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, Http404
-from .models import CardTitle, CardContent, CardType
-from django.views.generic import ListView, DetailView, CreateView
+from .models import CardTitle, CardType
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import CardCreationForm
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 def hello_world(request):
     return HttpResponse("Hello World")
@@ -22,24 +23,39 @@ class CardListView(ListView):
     model = CardTitle
     template_name = 'card/home.html'
     context_object_name = 'cards'
-    ordering = '-date_created'
+    ordering = ['-date_created']
 
 class CardDetailView(DetailView):
     model = CardTitle
-    pk_url_kwarg = 'card_id'
     template_name = 'card/detail.html'
     context_object_name = 'card'
 
 class CardCreateView(CreateView):
     model = CardTitle
-    template_name = 'card/create.html'
-    form_class = CardCreationForm
+    fields = ['title', 'content', 'categories']
+    # form_class = CardCreationForm
 
     def form_valid(self, form):
-        # card_title = form.save(commit=False) #TODO
-        # card_title.author = self.request.user
-        # card_title.save()
+        form.instance.author = User.objects.get(id=1) #TODO change to self.request.user
         return super().form_valid(form)
     
     def get_success_url(self):
-        return reverse("card-detail", kwargs={'card_id': self.object.id})
+        return reverse("cards-home")
+
+class CardUpdateView(UpdateView):
+    model = CardTitle
+    fields = ['title', 'content', 'categories']
+    # form_class = CardCreationForm
+
+    def form_valid(self, form):
+        form.instance.author = User.objects.get(id=1) #TODO
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse("cards-home")
+    
+class CardDeleteView(DeleteView):
+    model = CardTitle
+
+    def get_success_url(self):
+        return reverse("cards-home")

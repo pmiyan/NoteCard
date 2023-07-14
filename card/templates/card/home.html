@@ -5,10 +5,13 @@
 {% endblock %}
 
 {% block header %}
-    Welcome Home!
+    Cards Home
 {% endblock %}
 
 {% block content %}
+    <a href="{% url 'card-new' %}">
+        <button>New Card</button>
+    </a>
     {% for card in cards %}
         
         <h1><a href="{{ card.get_absolute_url }}">{{ card.title }}</a></h1>

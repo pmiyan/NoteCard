@@ -17,4 +17,6 @@
         {% endfor %}
     </p>
     <p>posted by {{card.author}} on {{card.date_created}}</p>
+    <a href="{% url 'card-update' pk=card.id %}"><button>Update</button></a>
+    <a href="{% url 'card-delete' pk=card.id %}"><button>Delete</button></a>
 {% endblock %}

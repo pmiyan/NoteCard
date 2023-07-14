@@ -24,6 +24,8 @@ class CardListView(ListView):
     template_name = 'card/home.html'
     context_object_name = 'cards'
     ordering = ['-date_created']
+    paginate_by = 4
+
 
 class CardDetailView(DetailView):
     model = CardTitle

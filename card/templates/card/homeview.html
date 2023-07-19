@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    New Home
+{% endblock %}
+
+{% block header %}
+    NoteCards
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'card-new' %}">
+        <button>+ New Category</button>
+    </a>
+
+    {% for type in categories %}
+        <h1><a href="{% url 'card-typedetail' type.pk %}">{{type.category}}</a></h1>
+        <button><a href="{% url 'type-update' type.pk %}">Update</a></button>
+        <button><a href="{% url 'type-delete' type.pk %}">Delete</a></button>
+    {% endfor %}
+{% endblock %}

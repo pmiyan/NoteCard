@@ -9,23 +9,49 @@ from django.contrib.auth.models import User
 def hello_world(request):
     return HttpResponse("Hello World")
 
-# def detail(request, card_id):
-#     card = get_object_or_404(CardTitle, pk=card_id)
-#     context = {'card':card}
-#     return render(request, 'card/detail.html', context)
+class TypeListView(ListView):
+    model = CardType
+    template_name = 'card/homeview.html'
+    context_object_name = 'categories'
 
-# def home(request):
-#     cards = get_list_or_404(CardTitle)
-#     context = {'cards':cards}
-#     return render(request, 'card/home.html', context)
+class TypeDetailView(DetailView):
+    model = CardType
+    template_name = 'card/typedetail.html'
+    context_object_name = 'type'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        type_object = self.get_object()
+        cards = CardTitle.objects.filter(categories=type_object).order_by('-date_created')
+        context['cards'] = cards
+        return context
+    
+class TypeCreateView(CreateView):
+    model = CardType
+    fields = ['category', 'color']
+
+    def get_success_url(self):
+        return reverse('cards-homeview')
+    
+class TypeUpdateView(UpdateView):
+    model = CardType
+    fields = ['category', 'color']
+
+    def get_success_url(self):
+        return reverse('cards-homeview')
+    
+class TypeDeleteView(DeleteView):
+    model = CardType
+
+    def get_success_url(self):
+        return reverse("cards-homeview")
 
 class CardListView(ListView):
     model = CardTitle
-    template_name = 'card/home.html'
+    template_name = 'card/cards_home.html'
     context_object_name = 'cards'
     ordering = ['-date_created']
     paginate_by = 4
-
 
 class CardDetailView(DetailView):
     model = CardTitle
@@ -42,7 +68,7 @@ class CardCreateView(CreateView):
         return super().form_valid(form)
     
     def get_success_url(self):
-        return reverse("cards-home")
+        return reverse("cards-homeview")
 
 class CardUpdateView(UpdateView):
     model = CardTitle
@@ -54,10 +80,10 @@ class CardUpdateView(UpdateView):
         return super().form_valid(form)
     
     def get_success_url(self):
-        return reverse("cards-home")
+        return reverse("cards-homeview")
     
 class CardDeleteView(DeleteView):
     model = CardTitle
 
     def get_success_url(self):
-        return reverse("cards-home")
+        return reverse("cards-homeview")

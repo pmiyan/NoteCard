@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ type.category }}
+{% endblock %}
+
+{% block header %}
+    <a href="{% url 'type-update' type.pk %}">{{ type.category }} Cards</a>
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'card-new' %}">
+        <button>+ New Card</button>
+    </a>
+    {% for card in cards %}
+        <h1><a href="{{ card.get_absolute_url }}">{{ card.title }}</a></h1>
+        <h2>{{card.content}}</h2>
+        <p>categories:
+            {% for category in card.categories.all %}
+                | {{ category.category }} | 
+            {% endfor %}
+        </p>
+        <p>posted by {{card.author}} on {{card.date_created}}</p>
+    {%endfor%}
+{% endblock %}
